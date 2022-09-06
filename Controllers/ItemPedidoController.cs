@@ -46,6 +46,7 @@ namespace EstoqueWeb.Controllers
                 if (_context.Pedidos.Any(p => p.IdPedido == ped))
                 {
                     var produtos = _context.Produtos
+                        .Where(p => p.Estoque >= 1)
                         .OrderBy(x => x.Nome)
                         .Select(p => new { p.IdProduto, NomePreco = $"{p.Nome} ({p.Preco:C})" })
                         .AsNoTracking().ToList();
